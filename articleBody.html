@@ -1,62 +1,171 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+  <title>Git for Non-Programmers</title>
 </head>
 <body>
+<h1>Introduction to Git for Non-Programmers</h1>
+<h2>Introduction</h2>
+<span style="font-style: italic;">Version Control</span> is the process
+of recording the history of changes to files as they are
+modified.&nbsp;
+Users can go back in time and get old versions and identify where
+changes were introduced (people sometimes refer to version control
+tools as time machines). This mean that it is easier to<br>
+<ul>
+  <li>Protect against 'accidental' changes and get a known good version
+of a file back</li>
+  <li>Have more than one person working on changes at once (programmers
+refer to this as parallel development)</li>
+  <li>Get an older set of files that may be requested by a customer or
+manager<br>
+  </li>
+</ul>
+The first version control (VC)&nbsp; tool, <a
+ href="http://en.wikipedia.org/wiki/Source_Code_Control_System">SCCS</a>,
+was written in 1972 and since that time there has a some major advances
+in the way tools are used. Git represents the current 'state of the
+art' in that it is distributed <a
+ href="http://en.wikipedia.org/wiki/Mercurial_%28software%29">(Mercurial</a>
+and <a href="http://en.wikipedia.org/wiki/Bazaar_software">Bazaar</a>&nbsp;
+are examples of other open source distributed VC tools). A distributed
+VC tool gives each user a complete history of all changes to the files
+which they work on and make further changes. Later all changes can be
+merged together over the computer network into a common thread for
+release or further work. Whilst this sounds complicated the tool makes
+it relatively easy and error free.<br>
 <br>
-<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
-<title>Git for Non-Programmers
-</title>
-<h1>Introduction to Git for Non-Programmers
-</h1>
-Intro to version control
-Preserve
-Rollback
-Multiple project streams
-Brief history of version control
-SCCS dates
-Evolution of open source SCM
-CVS -&gt; SVN -&gt; DVC
-Commercial products
-VSS, ClearCase, PVCS
-Concepts
-Repository and working copies (with diagrams)
-Purpose
-Central vs
-Distributed
-Benefits
+Other well know VC tools, for example <a
+ href="http://svnbook.red-bean.com/nightly/en/index.html">Subversion</a>,
+are classed as centralised and provide only a single place (repository)
+into which all users put the changes on a regular basis. In this model
+users do not have a personal copy of the change history, they only have
+the set of the files they currently working with. Git also has a some
+plug-ins to allow it it be a local client to a remote repository
+maintained by other tools such as <a
+ href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">Subversion</a>
+so you can be a Git user and still work on projects that use those
+tools.<br>
+<br>
+Git runs on Windows, OS/X, Linux and UNIX.<br>
+<br>
+This article presents Git and version control without assuming any
+prior knowledge or programming experience. Because of it's introductory
+nature certain details are simplified or ommitted and the use of the
+Git Graphical User Interface (git-gui) is emphasied.<br>
+<h2>Concepts</h2>
+Git maintains a dabase of all previous file versions in a repository
+(repo) and it is located&nbsp; in a directory called .git (in UNIX
+style systems names that begin with a . are not displayed by default so
+the repo is usually not visible during normal work). As well the
+contents of the files and directory versions there is additional
+housekeeping information about current work, other remote repostories
+we are sharing with, current settings and so on. In Git we have a
+seperate repo for each of our projects (websites for instance)<br>
+<br>
+As well as the repo there is the current set of working files that are
+we are working on and editing. As we complete changes to our working
+files we add the changes to the repo -- this is called commiting
+changes. In actually fact we are not fully committed as we can always
+get old versions back and make changes to the changes. We can also get
+a summary of our current changes against previous versions to see what
+we have done so far. The set of files we are currently working is
+called the working copy. We can easily change the working copy to a
+different version whenever we want.<br>
+<br>
+<img style="width: 555px; height: 374px;"
+ alt="The working copy and repo" src="images/Diagram1.png"><br>
+<br>
+Before progressing any further let's install Git and set up a small
+test repo to work with.<br>
+<h2>Installing Git</h2>
+If you use Linux then installing should be a simple matter of using
+your package manager to install git (and possibly gitgui&nbsp; if it's
+a seperate package). For Apple OS/X either use the <a
+ href="http://code.google.com/p/git-osx-installer/">installer</a> or
+you can use <a href="http://github.com/guides/get-git-on-mac">Mac Ports</a>.
+Windows users who also use Cygwin can use the Git from Cygwin, use the
+Cygwin setup.exe package manger to install the appropriate packages.
+Other Windows users should use the the native Windows Git package<br>
+<br>
+<h3>Special Notes for Windows Users</h3>
+If you do not use Cygwin or <a
+ href="http://en.wikipedia.org/wiki/PuTTY">Putty</a>, then accept all
+defaults during the install. You&nbsp; may care to make a single change
+to that is to select "Run Git from the Windows Command Prompt"<br>
+<h2>Starting to use Git</h2>
+Locate the Gitgui command, either from a menu or by running git-gui
+from the command line<img style="width: 499px; height: 378px;"
+ alt="Git Gui startup screen"
+ src="images/Screenshot-Git%20Gui_startup.png" align="left">. You see a
+screen similiar to this<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+Select 'Create New Repostory'<br>
+<br>
+<br>
+Enter a the name of a new directory. Git will create the directory and
+initialise an empty repo <br>
+<br>
+<br>
+<br>
 Commits
-History
-branches and merges
-Releases
-Special GIT concepts
-Sha1/tree/blob/commit
-Hand Waving overview
-Using Git
-Mention Git command line and Gui options
-Side bar on installing Git for Windows users
-Setting up a Git repo (step-by-step)
-Command line and Git Gui screen shots using standard Git Gui and Gitk
-cross platform GUI tools
-Git basics howto
-Changesets and edit/test/commit cycle
-Add/commit cycle
+History<br>
+Branches and merges<br>
+Releases<br>
+<br>
+Special GIT concepts<br>
+Sha1/tree/blob/commit<br>
+Hand Waving overview<br>
+Using Git<br>
+Mention Git command line and Gui options<br>
+<br>
+Installing Git for Windows users<br>
+<br>
+Git basics howto<br>
+<br>
+<br>
+<br>
+Changesets and edit/test/commit cycle<br>
+Add/commit cycle<br>
 Branch
-Merge
-tags
-Remote repos
-Clone
-Upstream vs Origin vs local repository
-Pull
-Push
-GitHub
-Social aspects of sharing technical content
-Itch scratching
-Recognition (see also ohloh.net)
-mention beanstalk for SVN users
+Merge<br>
+tags<br>
+<br>
+Remote repos<br>
+Clone<br>
+Upstream vs Origin vs local repository<br>
+Pull/Fetch
+Push<br>
+GitHub<br>
+Social aspects of sharing technical content<br>
+Itch scratching<br>
+Recognition (see also ohloh.net)<br>
+mention beanstalk for SVN users<br>
 Benefits
 Easy project history sharing
-Easy way to share code &#8211; pull requests
+Easy way to share code – pull requests
 Other features (issues/wiki)
 Workflow ??
 Motivation
@@ -66,13 +175,22 @@ Laptop/Disconnected lifestyle compatible
 Fast
 Flexible
 Further reading
-Licence and Copyright text
-About Author
+Licence and <br>
+<br>
+Git History<br>
+<br>
+Git was initially developed by Linux Torvalds in 2004 and is now
+maintained <br>
+<h2>About the author</h2>
 Alec Clews is principal consultant at Voga Consulting Services
 (voga.com.au) where he specialises in SCM and Application Life-cycle
 Management. You can connect to him at
 http://www.linkedin.com/in/alecclews, have a conversation with him as
 alecthegeek on twitter or identi.ca or find his code at
 http://github.com/alecthegeek.
+<h2>Copyright</h2>
+This article is copyright © 2009 SitePoint Pty. Ltd. All Rights
+Reserved. Join the discussion at
+http://sitepoint.com/launch/git-tutorial/
 </body>
 </html>
