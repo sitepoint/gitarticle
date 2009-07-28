@@ -5,33 +5,33 @@
   <title>Git for Non-Programmers</title>
 </head>
 <body>
-<h1>Introduction to Git for Non-Programmers</h1>
+<h1>Version Control and Git for Non-Programmers</h1>
 <h2>Introduction</h2>
 <span style="font-style: italic;">Version Control</span> is the process
-of recording the history of changes to files as they are
-modified.&nbsp;
+of recording the history of changes to files as they are modified.
 Users can go back in time and get old versions and identify where
 changes were introduced (people sometimes refer to version control
-tools as time machines). This mean that it is easier to<br>
+tools as time machines). This mean that it is easier to
 <ul>
   <li>Protect against 'accidental' changes and get a known good version
 of a file back</li>
   <li>Have more than one person working on changes at once (programmers
 refer to this as parallel development)</li>
   <li>Get an older set of files that may be requested by a customer or
-manager<br>
-  </li>
+manager</li>
 </ul>
-The first version control (VC)&nbsp; tool, <a
+The first version control (VC) tool, <a
  href="http://en.wikipedia.org/wiki/Source_Code_Control_System">SCCS</a>,
 was written in 1972 and since that time there has a some major advances
 in the way tools are used. Git represents the current 'state of the
 art' in that it is distributed <a
  href="http://en.wikipedia.org/wiki/Mercurial_%28software%29">(Mercurial</a>
-and <a href="http://en.wikipedia.org/wiki/Bazaar_software">Bazaar</a>&nbsp;
+and <a href="http://en.wikipedia.org/wiki/Bazaar_software">Bazaar</a>
 are examples of other open source distributed VC tools). A distributed
 VC tool gives each user a complete history of all changes to the files
-which they work on and make further changes. Later all changes can be
+which they work on and make further changes, so for instance it's
+possible to look at previous versions of files while flying across the
+Pacific (assuming your laptop battery lasts). Later all changes can be
 merged together over the computer network into a common thread for
 release or further work. Whilst this sounds complicated the tool makes
 it relatively easy and error free.<br>
@@ -46,30 +46,34 @@ plug-ins to allow it it be a local client to a remote repository
 maintained by other tools such as <a
  href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">Subversion</a>
 so you can be a Git user and still work on projects that use those
-tools.<br>
+tools (see git-svn).<br>
 <br>
 Git runs on Windows, OS/X, Linux and UNIX.<br>
 <br>
 This article presents Git and version control without assuming any
 prior knowledge or programming experience. Because of it's introductory
-nature certain details are simplified or ommitted and the use of the
-Git Graphical User Interface (git-gui) is emphasied.<br>
+nature certain details are simplified or omitted and the use of the
+Git Graphical User Interface (<a
+ href="http://www.kernel.org/pub/software/scm/git/docs/git-gui.html">git-gui</a>)
+is emphasised.<br>
 <h2>Concepts</h2>
-Git maintains a dabase of all previous file versions in a repository
-(repo) and it is located&nbsp; in a directory called .git (in UNIX
+Git maintains a database of all previous file versions in a repository
+(repo) and it is (usually) located&nbsp; in a directory called .git. In
+UNIX
 style systems names that begin with a . are not displayed by default so
-the repo is usually not visible during normal work). As well the
+the repo is usually not visible during normal work except on MS
+Windows. As well the
 contents of the files and directory versions there is additional
-housekeeping information about current work, other remote repostories
+housekeeping information about current work, other remote repositories
 we are sharing with, current settings and so on. In Git we have a
-seperate repo for each of our projects (websites for instance)<br>
+separate repo for each of our projects (websites for instance)<br>
 <br>
 As well as the repo there is the current set of working files that are
 we are working on and editing. As we complete changes to our working
 files we add the changes to the repo -- this is called commiting
-changes. In actually fact we are not fully committed as we can always
+changes. In actual fact we are not fully committed as we can always
 get old versions back and make changes to the changes. We can also get
-a summary of our current changes against previous versions to see what
+a summary of our work against previous versions to see what
 we have done so far. The set of files we are currently working is
 called the working copy. We can easily change the working copy to a
 different version whenever we want.<br>
@@ -81,67 +85,260 @@ Before progressing any further let's install Git and set up a small
 test repo to work with.<br>
 <h2>Installing Git</h2>
 If you use Linux then installing should be a simple matter of using
-your package manager to install git (and possibly gitgui&nbsp; if it's
-a seperate package). For Apple OS/X either use the <a
+your package manager to install git (and possibly git-gui&nbsp; if it
+is
+a separate package). For Apple OS/X either use the <a
  href="http://code.google.com/p/git-osx-installer/">installer</a> or
 you can use <a href="http://github.com/guides/get-git-on-mac">Mac Ports</a>.
-Windows users who also use Cygwin can use the Git from Cygwin, use the
-Cygwin setup.exe package manger to install the appropriate packages.
-Other Windows users should use the the native Windows Git package<br>
-<br>
-<h3>Special Notes for Windows Users</h3>
+Windows users who use Cygwin can use the Git from Cygwin, use the
+Cygwin set-up.exe package manger to install the appropriate packages.
+Other Windows users should use the the native Windows Git package
+msysgit<br>
+<h3>Special Notes for Windows Users using msysgit<br>
+</h3>
 If you do not use Cygwin or <a
  href="http://en.wikipedia.org/wiki/PuTTY">Putty</a>, then accept all
 defaults during the install. You&nbsp; may care to make a single change
-to that is to select "Run Git from the Windows Command Prompt"<br>
+to select "Run Git from the Windows Command Prompt"<br>
+<br>
+If you want to use Git from the command line (which is much easier once
+you are used to it) then set up the VISUAL environment string to point
+to a text editor that can handle UNIX format text files. For instance
+for Notepad++ type the following "set
+VISUAL=c:\Progra~1\Notepad++\notepad++.exe" (note the lack of spaces in
+the path string) or add it permanantly to the environment. This will be
+the editor used to create your commit messages, more on that later.
+Note that Windows Notepad is inadequte to the task.<br>
 <h2>Starting to use Git</h2>
-Locate the Gitgui command, either from a menu or by running git-gui
-from the command line<img style="width: 499px; height: 378px;"
- alt="Git Gui startup screen"
- src="images/Screenshot-Git%20Gui_startup.png" align="left">. You see a
-screen similiar to this<br>
+Locate the git-gui command, either from a menu or by running git-gui
+from the command line.You see a
+screen similar to this<br>
+<img style="width: 499px; height: 378px;" alt="Git Gui startup screen"
+ src="images/Screenshot-Git%20Gui_startup.png">.
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-Select 'Create New Repostory'<br>
+Select 'Create New Repository'<br>
 <br>
 <br>
 Enter a the name of a new directory. Git will create the directory and
 initialise an empty repo <br>
 <br>
+Alternatively you do this from the command prompt<br>
+<br>
+<pre style="margin-left: 40px;">&gt; mkdir demo1<br>&gt; cd demo1<br>&gt; git init<br>Initialised empty Git repository in /home/alec/miniProjects/sitepoint_git_intro/demo1/.git/<br>&gt;<br></pre>
+<br>
+If you look in the directory you should see a directory names .git (On
+OS/X or Linux you will need to use the command ls -A to show the hidden
+.git directory) In your newly created directory edit some new files.
+You can either use your favourite editor or again use the command line<br>
+<div style="margin-left: 40px;">
+<pre>&gt; echo text1 &gt; file1<br>&gt; echo text2 &gt; file2<br></pre>
+</div>
+<br>
+You will then have some changes that are not under version control, in
+Git these are called unstaged.<br>
+<br>
+<img style="width: 485px; height: 525px;" alt="Unstaged Changes"
+ src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-1.png"><br>
 <br>
 <br>
-Commits
-History<br>
-Branches and merges<br>
+You can get the same information from the command line with git status<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>&gt; git status<br># On branch master<br>#<br># Initial commit<br>#<br># Untracked files:<br>#   (use "git add &lt;file&gt;..." to include in what will be committed)<br>#<br>#	file1<br>#	file2<br>nothing added to commit but untracked files present (use "git add" to track)<br><br></pre>
+</div>
+<br>
+Now for a little diversion before we add our files to the repository<br>
+<br>
+<h2>The Git Index</h2>
+<br>
+Git is a little different to most VC tools in that adding changes to a
+repo is a two stage process. All changes, before they arrive at the
+repo, are staged into the index.<br>
+<br>
+<img style="width: 420px; height: 361px;" alt="Working vs Index vs Repo"
+ src="images/Diagram2.png"><br>
+<br>
+The index allows us to add changes on the way to building a commit.
+Whilst the index seems confusing and unnecessary at first it useful for
+a
+variety of reasons:<br>
+<ol>
+  <li>Our working copy may contain more that one set of changes and the
+index allows us to cherry pick which ones will be part of the next
+commit.</li>
+  <li>You can incrementally make changes (using your own work-flow)
+before making a commit.</li>
+  <li>You can stage and unstage changes in more complex work flows (see
+the git stash)<br>
+  </li>
+</ol>
+However won't be talking about the index any more here, we will just
+use it.<br>
+<br>
+Before using Git for the first time we need to tell Git who we are
+(name and email
+address). From the Git gui interface select Edit-&gt;Options and fill
+in the top two fields under Global (leave all other values as defaults)<br>
+<br>
+<img src="images/Screenshot-Git%20Gui%20%28demo1%29:%20Options.png"
+ alt="Set Global details" style="width: 870px; height: 552px;"><br>
+<br>
+<br>
+Alternately run the commands<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>&gt; git config --global user.name "Alec Clews"<br>&gt; git config --global user.email "alec.clews@voga.com.au"</pre>
+</div>
+<br>
+<span style="font-style: italic;">Now</span> we can add our changes to
+the index and commit them to the
+repository<br>
+<br>
+First select both files on the "Unstaged Changes" pane<br>
+<br>
+<img style="width: 537px; height: 552px;" alt="Select Files for staging"
+ src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-2.png"><br>
+<br>
+Then either press &lt;ctrl&gt;-t, or from the "Commit" menu select
+"Stage To Commit"<br>
+<br>
+The display then changes to show that we have no changes waiting to be
+staged, but we do have changes to be committed<br>
+<br>
+<img style="width: 537px; height: 552px;" alt="Files to be committed"
+ src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-3.png"><br>
+<br>
+Alternatively run the following command<br>
+<div style="margin-left: 40px;">
+<pre>&gt; git add file1 file2</pre>
+</div>
+or even
+<div style="margin-left: 40px;">
+<pre>&gt; git add .</pre>
+</div>
+<br>
+We can now commit our first change to the repo. Each time we make a
+commit Git expects an informational message that gets added as part of
+the commit -- if you don't provide message&nbsp; no commit will be
+made. Generally we add a single line
+description and then a more detailed message<br>
+<br>
+&lt;need Windows Screen shot&gt;<br>
+<br>
+Now that we have made a commit, the latest version in the repo (called
+HEAD) is the same as the contents of working files.&nbsp; Running git
+status should show the message..<br>
+<br>
+We can always refer to the contents of the last commit as HEAD and the
+contents of the commit prior to that as HEAD^1 (and HEAD^2 for the
+commit prior to that, and so on). However that quickly gets cumbersome
+and hard to use, so Git gives each commit a special name which is an
+apparently a random string of 40 characters called the sha1 hash.
+Whilst it does not look very user friendly every commit across the
+world has a unique sha1 and when you come to share your history with
+other Git users (for instance other members of the web team) there is a
+unique way to refer to your work and it's history. If two users have
+the same sha1 in their repo then they are refering to the same piece of
+work. In practice humans can usually just refer to the last few unique
+digits in the sha1 to uniquely identify a commit.<br>
+&nbsp; <br>
+As a user you will generally only see sha1 used to represent a commit,
+however 'under the covers' sha1 is used to identify files, directories
+(trees in Git terminology) and tags. This has an interesting, and
+highly desirable, effect. When you rename a file (or move it in the
+directory tree) it's sha1 does not change, but the tree that refers to
+the file and it's name does. This means that Git can track changes and
+moves far more easily than tools such as Subversion.<br>
+<br>
+&lt;how to make the next change&gt;<br>
+<br>
+Now we need to make the next change<br>
+<br>
+&gt; echo more text &gt;&gt; file1<br>
+&gt; git status<br>
+<br>
+When we get back in morning we've forgotton how far we got with the
+changes<br>
+<br>
+&lt;how to show the history, diffs etc&gt;<br>
+<h2>Branches and merges</h2>
+One of Git's most powerful features is support for easy branching and
+merging of files. If you look back over the previous examples you will
+see references to 'master'. This is the name of default branch
+and&nbsp; every time we had changes they will be added to the history
+of the master branch.&nbsp; However often life does not proceed in a
+long straight line -- we have to jump around&nbsp; and work on
+different sets&nbsp; of changes and Git makes this a lot easier than
+you would think. Let's make this a little more concrete.<br>
+<br>
+Suppose we have a web site which is currently in production. That work
+will be maintained on master as the current production release. We now
+have to a) Prepare new changes for the next release of the web site and
+b) Fix issues that comes up in production (and probably a million other
+things as well...)<br>
+<br>
+We can do represent this in Git by having three branches<br>
+<br>
+<ul>
+  <li>master: What is in production (or about to the released to
+production)</li>
+  <li>development: Our new set of features for the next release.</li>
+  <li>maintenance: A copy of master that we use to make and test
+immediate fixes to the live site</li>
+</ul>
+Let's set up the example and see how we do this (for simplicity we will
+use the command line to set up our demo, it's similar to our example
+above)<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>&gt; mkdir demo2<br>&gt; cd demo2<br>&gt; git init</pre>
+... edit index.html...<br>
+<pre>&gt; git add .<br>&gt; git commit -m "Initial Production version"</pre>
+<pre>&gt; $git status<br># On branch master<br>nothing to commit (working directory clean)</pre>
+</div>
+<br>
+Now we release the latest contents of the git repo to the web site (for
+simplicity I'm discussing the mechanisms for doing that later). All is
+right with the world and we come in the next day and start working on
+new features<br>
+<pre style="margin-left: 40px;">&gt; cd demo2<br>&gt; git branch "rel_2"<br></pre>
+There are now two branches -- any changes on once branch are
+independent of the history recorded on the branch. We can list the
+branches like this<br>
+<br>
+<div style="margin-left: 40px;">&gt; git branch<br>
+* master<br>
+&nbsp; rel_2<br>
+</div>
+<br>
+The currently active branch is marked with an asterisk. We can now work
+on rel 2 with a simple checkout<br>
+<br>
+<div style="margin-left: 40px;">&gt; git checkout rel_2<br>
+Switched to branch 'rel_2'<br>
+</div>
+<br>
+and so<br>
+<br>
+<div style="margin-left: 40px;">&gt; git branch<br>
+&nbsp; master<br>
+* rel_2<br>
+</div>
+<br>
+Now we make some changes for the next release, in this case editing
+index.html. We can see summary of changes by looking in the gui<br>
+<br>
+&nbsp;<br>
+<br>
+<br>
 Releases<br>
 <br>
 Special GIT concepts<br>
 Sha1/tree/blob/commit<br>
 Hand Waving overview<br>
 Using Git<br>
-Mention Git command line and Gui options<br>
+Mention Git command line and GUI options<br>
 <br>
-Installing Git for Windows users<br>
 <br>
 Git basics howto<br>
 <br>
@@ -183,10 +380,11 @@ Git was initially developed by Linux Torvalds in 2004 and is now
 maintained <br>
 <h2>About the author</h2>
 Alec Clews is principal consultant at Voga Consulting Services
-(voga.com.au) where he specialises in SCM and Application Life-cycle
+(http://voga.com.au) where he specialises in SCM and Application
+Life-cycle
 Management. You can connect to him at
 http://www.linkedin.com/in/alecclews, have a conversation with him as
-alecthegeek on twitter or identi.ca or find his code at
+alecthegeek on twitter and identi.ca, or find his code at
 http://github.com/alecthegeek.
 <h2>Copyright</h2>
 This article is copyright © 2009 SitePoint Pty. Ltd. All Rights
