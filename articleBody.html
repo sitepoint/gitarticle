@@ -159,7 +159,8 @@ repo, are staged into the index.<br>
  src="images/Diagram2.png"><br>
 <br>
 The index allows us to add changes on the way to building a commit.
-Whilst the index seems confusing and unnecessary at first it useful for
+Whilst the index seems confusing and unnecessary at first it is useful
+for
 a
 variety of reasons:<br>
 <ol>
@@ -254,11 +255,9 @@ moves far more easily than tools such as Subversion.<br>
 <br>
 Now we need to make the next change<br>
 <br>
-&gt; echo more text &gt;&gt; file1<br>
-&gt; git status<br>
-<br>
+<pre>&gt; echo more text &gt;&gt; file1<br><br>&gt; git status</pre>
 When we get back in morning we've forgotton how far we got with the
-changes<br>
+changes
 <br>
 &lt;how to show the history, diffs etc&gt;<br>
 <h2>Branches and merges</h2>
@@ -293,8 +292,7 @@ above)<br>
 <div style="margin-left: 40px;">
 <pre>&gt; mkdir demo2<br>&gt; cd demo2<br>&gt; git init</pre>
 ... edit index.html...<br>
-<pre>&gt; git add .<br>&gt; git commit -m "Initial Production version"</pre>
-<pre>&gt; $git status<br># On branch master<br>nothing to commit (working directory clean)</pre>
+<pre>&gt; git add .<br>&gt; git commit -m "Initial Production version"<br>&gt; $git status<br># On branch master<br>nothing to commit (working directory clean)</pre>
 </div>
 <br>
 Now we release the latest contents of the git repo to the web site (for
@@ -306,46 +304,83 @@ There are now two branches -- any changes on once branch are
 independent of the history recorded on the branch. We can list the
 branches like this<br>
 <br>
-<div style="margin-left: 40px;">&gt; git branch<br>
-* master<br>
-&nbsp; rel_2<br>
+<div style="margin-left: 40px;">
+<pre>&gt; git branch<br><br>* master<br><br>&nbsp; rel_2</pre>
 </div>
 <br>
 The currently active branch is marked with an asterisk. We can now work
 on rel 2 with a simple checkout<br>
 <br>
-<div style="margin-left: 40px;">&gt; git checkout rel_2<br>
-Switched to branch 'rel_2'<br>
+<div style="margin-left: 40px;">
+<pre>&gt; git checkout rel_2<br>Switched to branch 'rel_2'</pre>
 </div>
 <br>
 and so<br>
 <br>
-<div style="margin-left: 40px;">&gt; git branch<br>
-&nbsp; master<br>
-* rel_2<br>
+<div style="margin-left: 40px;">
+<pre>&gt; git branch<br>&nbsp; master<br>* rel_2</pre>
 </div>
 <br>
 Now we make some changes for the next release, in this case editing
-index.html. We can see summary of changes by looking in the gui<br>
+index.html. We can see summary of changes by looking in the gui or
+using git diff on the command line<br>
 <br>
-&nbsp;<br>
+<img style="width: 566px; height: 465px;" alt="Diff display"
+ src="images/Screenshot-Git%20Gui%20%28demo2%29%20Diff%20.png"><br>
 <br>
+<pre style="margin-left: 40px;">&gt; git diff<br>diff --git a/index.html b/index.html<br>index 800b514..dd9ef86 100644<br>--- a/index.html<br>+++ b/index.html<br>@@ -4,5 +4,7 @@<br> &lt;/head&gt;<br> &lt;body&gt;<br> hello world&lt;br&gt;<br>+&lt;br&gt;<br>+and goodbye as well&lt;br&gt;<br> &lt;/body&gt;<br> &lt;/html&gt;<br><br></pre>
+<br>
+The lines beginning with '+' shows the change I have not staged. git
+diff has a variety of option that allow you display changes between the
+working copy, index and various revisions. Type git diff --help at the
+command prompt, all Git commands support the --help option.<br>
+<br>
+I'll now stage and commit the change using a single git command (for
+illustrative purposes).<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>&gt; git commit -a -m "say goodbye"<br>[rel_2 0015d91] say goodbye<br> 1 files changed, 2 insertions(+), 0 deletions(-)<br><br></pre>
+</div>
+Git tells us (reading from the bottom up.<br>
+<br>
+<ol>
+  <li>It has tracked a change to 1 file</li>
+  <li>The file change consisted of 2 lines inserted</li>
+  <li>That a new commit with a sha1 starting 0015d91 was created</li>
+  <li>That the HEAD (and branch rel_2) point to that new commit</li>
+</ol>
+Running the git log command summarises the previous two commits<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>$git log<br>commit 0015d91c6d24f6d43627bf45af82ee2085fbfc5d<br>Author: Alec Clews &lt;alec.clews@voga.com.au&gt;<br>Date:   Wed Jul 29 09:38:51 2009 +1000<br><br>    say goodbye<br><br>commit e74e1271907baf14a4cd5c2d7724373face011d6<br>Author: Alec Clews &lt;alec.clews@voga.com.au&gt;<br>Date:   Mon Jul 27 22:05:06 2009 +1000<br><br>    Initial Production version<br><br></pre>
+</div>
+Now lets do a production fix without affecting our work in progress.
+Remember that the master branch is the current copy of&nbsp;
+production, so let's move our working copy back to production (because
+our new changes are safe on the rel_2 branch).<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>&gt;git checkout master<br>Switched to branch 'master'<br>&gt; cat index.html <br>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>hello world&lt;br&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br></pre>
+</div>
+So we have gone back to the production environment. Let's create a new
+branch for production support<br>
+<br>
+<div style="margin-left: 40px;">
+<pre>&gt; git branch prod_support<br>&gt; git checkout prod_support<br>Switched to branch 'prod_support'<br>&gt; git branch<br>  master<br>* prod_support<br>  rel_2<br><br></pre>
+</div>
+So now we have three banches and we are working on the prod_support
+branch (because that is the last branch we checket out)<br>
+<br>
+<div style="margin-left: 40px;">...edit index.html...<br>
+<br>
+<br>
+</div>
 <br>
 Releases<br>
 <br>
-Special GIT concepts<br>
-Sha1/tree/blob/commit<br>
-Hand Waving overview<br>
-Using Git<br>
-Mention Git command line and GUI options<br>
-<br>
-<br>
-Git basics howto<br>
 <br>
 <br>
 <br>
-Changesets and edit/test/commit cycle<br>
-Add/commit cycle<br>
 Branch
 Merge<br>
 tags<br>
