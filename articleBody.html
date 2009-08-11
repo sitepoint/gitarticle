@@ -43,7 +43,7 @@ art' in that it is distributed <a
  href="http://en.wikipedia.org/wiki/Mercurial_%28software%29">(Mercurial</a>
 and <a href="http://en.wikipedia.org/wiki/Bazaar_software">Bazaar</a>
 are examples of other
-<a href="http://en.wikipedia.org/wiki/Open_source_software">opensource</a>
+<a href="http://en.wikipedia.org/wiki/Open_source_software">open source</a>
 distributed VC tools).
 A distributed VC tool gives each user a complete history of all changes
 to the files
@@ -66,7 +66,11 @@ maintained by other tools such as <a
 so you can be a Git user and still work on projects that use those
 tools (see git-svn).
 </p>
-Git runs on Windows, OS/X, Linux and UNIX.
+Git runs on Windows, OS/X, Linux and UNIX. It was developed by Linus
+Torvalds, the lead developer of Linux, in 2005 to answer the needs of
+the his development community. As well as a powerful tool for the
+individual developer, it provides a powerful model for cooperation.
+Services such as GitHub and Gitorious exploit&nbsp; <br>
 <h2>Concepts</h2>
 <p>
 Git maintains a database of all previous file versions in a repository
@@ -123,17 +127,17 @@ for Notepad++ type the following "<code>set
 GIT_EDITOR=c:\Progra~1\Notepad++\notepad++.exe</code>" (note the
 lack of
 spaces in
-the path string) or add it permanantly to the environment. This will be
+the path string) or add it permanently to the environment. This will be
 the editor used to create your commit messages, more on that later.
-Note that Windows Notepad is inadequte to the task.<br>
+Note that Windows Notepad is inadequate to the task.<br>
   <br>
 There are more notes for Windows users <a
  href="http://nathanj.github.com/gitguide/index.html">here</a>
 and <a
  href="http://www.lostechies.com/blogs/jason_meridth/archive/2009/06/01/git-for-windows-developers-git-series-part-1.aspx">here</a>.<br>
 </blockquote>
-On many platforms graphical edtors (for example gvim) will spawn a
-window for editing the commit message and return control emmediatly to
+On many platforms graphical editors (for example gvim) will spawn a
+window for editing the commit message and return control immediately to
 the calling program (i.e. Git) without waiting for the user to complete
 the edit. In such cases you need to add an editor command option or
 make an editor configuration change (for instance on my laptop
@@ -220,7 +224,7 @@ use it.<br>
 <br>
 Before using Git for the first time we need to tell Git who we are
 (name and email
-address). From the Git gui interface select Edit-&gt;Options and
+address). From the Git GUI interface select Edit-&gt;Options and
 fill
 in the top two fields under Global (leave all other values as defaults)<br>
 <br>
@@ -278,7 +282,7 @@ or from the (Windows) command line<br>
 <p>Notice that running git commit from the command line starts an
 editor
 to enter the commit message. To abort the commit exit the editor
-wihtout saving the message. </p>
+without saving the message. </p>
 <p>Now that we have made a commit, the latest version in the repo
 (called
 HEAD) is the same as the contents of working files.&nbsp; Running
@@ -317,7 +321,7 @@ moves far more easily than tools such as Subversion.</p>
 Now we need to make the next change
 <br>
 <pre style="margin-left: 40px;">&gt; echo more text &gt;&gt; file1<br>&gt; git status</pre>
-When we get back in morning we've forgotton how far we got with the
+When we get back in morning we've forgotten how far we got with the
 changes. So run the command
 <div style="margin-left: 40px;">
 <pre>git diff<br>diff --git a/file1 b/file1<br>index ad1a4f3..984ea43 100644<br>--- a/file1<br>+++ b/file1<br>@@ -1 +1,2 @@<br>&nbsp;text1<br>+more text</pre>
@@ -327,7 +331,7 @@ or view the differences in git-gui<br>
 <img style="width: 451px; height: 436px;"
  alt="Show edit diffefrences in Git-Gui" src="images/SecondChange.png">
 &nbsp;<br>
-Then we can contine to add and commit changes as before<br>
+Then we can continue to add and commit changes as before<br>
 <br>
 As well as using 'git log' to see the history of changes Git has a
 second GUI application called gitk to that displays the history of
@@ -360,7 +364,7 @@ We can do represent this in Git by having three branches<br>
   <li>master: What is in production (or about to the released to
 production)</li>
   <li>development: Our new set of features for the next release.</li>
-  <li>maintenance: A copy of master that was previsouly released to
+  <li>maintenance: A copy of master that was previously released to
 production that we use to make and test
 immediate fixes to the live site</li>
 </ul>
@@ -403,7 +407,7 @@ and so<br>
 </div>
 <br>
 Now we make some changes for the next release, in this case editing
-index.html. We can see summary of changes by looking in the gui or
+index.html. We can see summary of changes by looking in the GUI or
 using git diff on the command line<br>
 <br>
 <img style="width: 566px; height: 465px;" alt="Diff display"
@@ -449,8 +453,8 @@ branch for production support<br>
 <div style="margin-left: 40px;">
 <pre>&gt; git branch prod_support<br>&gt; git checkout prod_support<br>Switched to branch 'prod_support'<br>&gt; git branch<br> master<br>* prod_support<br> rel_2<br><br></pre>
 </div>
-So now we have three banches and we are working on the prod_support
-branch (because that is the last branch we checket out)<br>
+So now we have three branches and we are working on the prod_support
+branch (because that is the last branch we checked out)<br>
 <br>
 <div style="margin-left: 40px;">...edit index.html...<br>
 <br>
@@ -466,32 +470,7 @@ Branch
 Merge<br>
 Remote repos<br>
 Clone<br>
-Upstream vs Origin vs local repository<br>
-Pull/Fetch
-Push<br>
-GitHub<br>
-Social aspects of sharing technical content<br>
-Itch scratching<br>
-Recognition (see also ohloh.net)<br>
-mention beanstalk for SVN users<br>
-Benefits
-Easy project history sharing
-Easy way to share code – pull requests
-Other features (issues/wiki)
-Workflow ??
-Motivation
-Professional
-Life saving
-Laptop/Disconnected lifestyle compatible
-Fast
-Flexible
-Further reading
-Licence and <br>
 <br>
-Git History<br>
-<br>
-Git was initially developed by Linux Torvalds in 2004 and is now
-maintained <br>
 <h2>About the author</h2>
 Alec Clews is principal consultant at Voga Consulting Services
 (http://voga.com.au) where he specialises in SCM and Application
