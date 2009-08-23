@@ -1,0 +1,66 @@
+#! /bin/sh
+i
+# Create a new repo
+rm -rf .git * .
+git init
+
+# Create some content
+cat > index.html  << EOF
+<html>
+<head>
+<meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
+</head>
+<body>
+hello world
+</body>
+</html>
+EOF
+
+#Add content to repo
+git add .
+git commit -m "Initial Production version"
+git status
+
+gitk --all
+
+# Rel 1 production done
+
+# Start work on Rel2
+
+git branch rel_2
+git checkout rel_2
+git branch
+
+# Rel2 changes
+sed -ie '/hello world/a<br>goodbye world' index.html
+git diff
+
+git commit -a -m "say goodbye"  # Add Rel2 to repo. Still needs testing + approval
+
+git log
+gitk --all
+
+# Oops -- production fix needed
+# Create a prodction support from current production (production = master)
+git branch prod_support master
+git checkout prod_support
+git branch
+
+# Make a production change
+sed -ie 's/hello world/Hello Word/' index.html
+
+git diff
+git commit -a -m "say Hello properly"
+gitk --all
+
+# Test test test fix test
+
+# Accept for production
+
+git checkout master
+
+# Fast forward merge -- so -m option is for show
+
+git merge prod_support  -m "Update prod with fixed from support"
+git log
+gitk --all
