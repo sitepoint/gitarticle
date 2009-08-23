@@ -1,7 +1,7 @@
 #! /bin/sh
-i
+
 # Create a new repo
-rm -rf .git * .
+rm -rf .git * .*
 git init
 
 # Create some content
@@ -32,7 +32,7 @@ git checkout rel_2
 git branch
 
 # Rel2 changes
-sed -ie '/hello world/a<br>goodbye world' index.html
+sed -i -e '/hello world/a<br>goodbye world' index.html
 git diff
 
 git commit -a -m "say goodbye"  # Add Rel2 to repo. Still needs testing + approval
@@ -47,7 +47,7 @@ git checkout prod_support
 git branch
 
 # Make a production change
-sed -ie 's/hello world/Hello Word/' index.html
+sed -i -e 's/hello world/Hello Word/' index.html
 
 git diff
 git commit -a -m "say Hello properly"
