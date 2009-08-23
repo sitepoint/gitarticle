@@ -390,7 +390,7 @@ independent of the history recorded on the branch. We can list the
 branches like this<br>
 <br>
 <div style="margin-left: 40px;">
-<pre>&gt; git branch<br><br>* master<br><br>&nbsp; rel_2</pre>
+<pre>&gt; git branch<br>* master<br>&nbsp; rel_2</pre>
 </div>
 <br>
 The currently active branch is marked with an asterisk. We can now work
@@ -465,17 +465,25 @@ branch (because that is the last branch we checked out)<br>
 <img style="width: 441px; height: 489px;"
  alt="gitk displays multiple branches"
  src="images/Screenshot-gitk:%20demo2-2.png"><br>
+<br>
+We can now test our changes in isolation before merging them onto the
+master production branch. As this is a very simple merge some of these
+options are for show.<br>
+<br>
+<pre style="margin-left: 40px;">&gt;git checkout master<br>&gt;git merge prod_support&nbsp; -m "Update prod with fixed from support"<br>&gt;git log</pre>
+<br>
+<span style="font-weight: bold;"></span>
 <h2>Wrap Up</h2>
 This has only been a very brief tour to introduce the power of Git.
-There are lots of really gret resources to help get you started (some
+There are lots of really great resources to help get you started (some
 are listed below). So why would you want to take it to the next level?<br>
 <ol>
   <li>Git does not need a network connection to a central server</li>
   <li>It's very fast</li>
   <li>Extremely powerful but flexible<br>
   </li>
-  <li>Has a greate model for sharing work with the your colleagues (who
-could be using tools such as Suberversion) and the rest of the world
+  <li>Has a great model for sharing work with the your colleagues (who
+could be using tools such as Subversion) and the rest of the world
 through services like GitHub and Gitorious</li>
 </ol>
 <h3>Further learning</h3>

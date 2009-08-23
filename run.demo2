@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/sh  -v
 
 # Create a new repo
 rm -rf .git * .*
