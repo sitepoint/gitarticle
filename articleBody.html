@@ -97,8 +97,7 @@ value "<code>/usr/bin/gvim --nofork</code>")<br>TO HERE
 <h2>The Git Index</h2>
 <p>Git is a little different to most VC tools in that adding changes to a repo is a two stage process. All changes are <em>staged</em> in the index, before they are committed into the repo.</p>
 
-<img style="width: 420px; height: 361px;" alt="Working vs Index vs Repo"
- src="images/Diagram2.png"><br>
+<img alt="Working vs Index vs Repo" src="images/git-index-diag.png">
 
 <p>The index allows us to add, remove and modify changes on the way to building a commit. Whilst the index seems confusing and unnecessary at first it is useful for a variety of reasons:</p>
 
@@ -112,153 +111,86 @@ value "<code>/usr/bin/gvim --nofork</code>")<br>TO HERE
 <code>add</code> there is also the <a  href="http://www.kernel.org/pub/software/scm/git/docs/git-rm.html">git rm</a> command to remove files and the <a  href="http://www.kernel.org/pub/software/scm/git/docs/git-mv.html">git mv</a> file to move or rename files. Once we have added the appropriate changes to the index we can commit changes to the repo.</p>
 
 That's all I'll mention about the index here, we'll just go ahead and use it. However before we can do that we have to sort out a configuration issue.
-Before using Git for the first time we need to tell Git who we are
-(name and email
-address). From the Git GUI interface select Edit-&gt;Options and
-fill
-in the top two fields under Global (leave all other values as defaults)<br>
-<br>
+
+<h2>Configuration</h2>
+<p>Before using Git we need to tell Git who we are; our name and email address. From the Git GUI interface select <strong>Edit &gt; Options</strong> and fill in the top two fields under Global. leave all the other values as they are</p>
+
 <img src="images/Screenshot-Git%20Gui%20%28demo1%29:%20Options.png"
  alt="Set Global details" style="width: 870px; height: 552px;"><br>
-<br>
-<br>
-Alternately run the commands<br>
-<div style="margin-left: 40px;">
-<pre>&gt; git config --global user.name "Alec Clews"<br>&gt; git config --global user.email "alec.clews@voga.com.au"</pre>
-</div>
-<span style="font-style: italic;">Now</span> we can
-add our changes to
-the index and commit them to the
-repository<br>
-<br>
-First select both files on the "Unstaged Changes" pane<br>
-<br>
+
+You can alternately run the commands
+<pre><code>$ git config --global user.name "Alec Clews"
+$ git config --global user.email "alec.clews@voga.com.au"</code></pre>
+
+<h2>Committing Changes</h2>
+
+<p><em>Now</em> we can add our changes to the index and commit them to the repository. First select both files on the "Unstaged Changes" pane.</p>
+
 <img style="width: 537px; height: 552px;" alt="Select Files for staging"
  src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-2.png"><br>
-<br>
-Then either press &lt;ctrl&gt;-t, or from the "Commit" menu
-select
-"Stage To Commit"<br>
-<br>
-The display then changes to show that we have no changes waiting to be
-staged, but we do have changes to be committed<br>
-<br>
+
+<p>Then select <strong>Commit > Stage To Commit</strong> (ctrl+t). The display then changes to show that we have no changes waiting to be
+staged, but we do have changes to be committed.</p>
+
 <img style="width: 537px; height: 552px;" alt="Files to be committed"
- src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-3.png"><br>
-<br>
-Alternatively run the following command<br>
-<div style="margin-left: 40px;">
-<pre>&gt; git add file1 file2</pre>
-</div>
-or even
-<div style="margin-left: 40px;">
-<pre>&gt; git add .</pre>
-</div>
-<br>
-We can now commit our first change to the repo. Each time we make a
-commit Git expects an informational message that gets added as part of
-the commit -- if you don't provide message&nbsp; no commit will be
-made. Generally we add a single line
-description and then a more detailed message<br>
-<br>
+ src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-3.png">
+ 
+Alternatively you can run the following command
+
+<pre><strong>$ git add file1 file2</strong></pre>
+
+You can also use the following if you don't need to specify which files to add: 
+
+<pre><code>$ git add .</code></pre>
+
+<p>Now that our files are staged, we can commit our first changes to the repo. Each time we make a commit, Git expects an informational message that gets added as part of the commit -- if you don't provide message no commit will be made. Generally we add a single line description and then a more detailed message. Click the <strong>Commit</strong> button and the changes are committed to the repo.</p>
+
 <img style="width: 700px; height: 570px;" alt="Git-Gui commit example"
  src="images/Win1.png"><br>
-<br>
-<br>
-or from the (Windows) command line<br>
-<br>
-<img style="width: 1000px; height: 525px;"
- alt="Commit from command line" src="images/win2.png">
-<p>Notice that running git commit from the command line starts an
-editor
-to enter the commit message. To abort the commit exit the editor
-without saving the message. </p>
-<p>Now that we have made a commit, the latest version in the repo
-(called
-HEAD) is the same as the contents of working files.&nbsp; Running
-git
-status should show the message..</p>
-<div style="margin-left: 40px;"><code>&gt; git
-status</code><br>
-<code># On branch master</code><br>
-<code>nothing to commit (working directory clean)</code></div>
-<p>
-We can always refer to the contents of the last commit as HEAD and the
-contents of the commit prior to that as HEAD^1 (and HEAD^2 for the
-commit prior to that, and so on), for instance the command git log
-HEAD^3..HEAD^2 is valid (we'll look more at the history in a minute).
-However that quickly gets error prone
-and hard to use, so Git gives each commit a special name which is an
-apparently random string of 40 characters called the sha1 hash (e.g.
-a90973cbe16d5a0cf4fcd5cca659f4a4587d7cb5).
-Whilst it does not look very user friendly every commit across the
-world has a unique sha1 and when you come to share your history with
-other Git users (for instance other members of the web team) there is a
-unique way to refer to your work and it's history. If two users have
-the same sha1 in their repo then they are refering to the same piece of
-work. In practice humans can usually just refer to the last few unique
-digits in the sha1 to uniquely identify a commit.
-</p>
-<p>
-As a user you will generally only see sha1 used to represent a commit,
-however 'under the covers' sha1 is used to identify files, directories
-(trees in Git terminology) and tags. This has an interesting, and
-highly desirable, effect. When you rename a file (or move it in the
-directory tree) it's sha1 does not change (because the files contents
-don't change), but the tree that refers to
-the file and it's name does. This means that Git can track changes and
-moves far more easily than tools such as Subversion.</p>
-Now we need to make the next change
-<br>
-<pre style="margin-left: 40px;">&gt; echo more text &gt;&gt; file1<br>&gt; git status</pre>
-When we get back in morning we've forgotten how far we got with the
-changes. So run the command
-<div style="margin-left: 40px;">
-<pre>git diff<br>diff --git a/file1 b/file1<br>index ad1a4f3..984ea43 100644<br>--- a/file1<br>+++ b/file1<br>@@ -1 +1,2 @@<br>&nbsp;text1<br>+more text</pre>
-</div>
-or view the differences in git-gui<br>
-<br>
+
+Alternatively from the command line you can enter the following:
+
+<pre><code>$ git commit -m "A message about your changes"</code></pre>
+
+<p>If you don't use the -m switch to add a message, Git will launch the text editor ViM for you. ViM can be a little bit confusing, but here's a quick cheat sheet. Hit i to enter insert mode, type in your message, hit esc to leave insert mode and then shift+ZZ to save and close. CHECK THIS</p>
+  
+  
+<p>Now that we have made a commit, the latest version in the repo -- called <code>HEAD</code> -- is the same as the contents of the working files. Running the command <code>git status</code> should show the message:</p>
+
+<pre><code>$ git status
+# On branch master
+nothing to commit (working directory clean)</code></pre>
+
+<p>We can always refer to the contents of the last commit as <code>HEAD</code> and the contents of the commit prior to that as <code>HEAD^1</code> (and <code>HEAD^2</code> for the commit prior to that, and so on). However that quickly gets error prone and hard to use, so Git gives each commit a special id which is an apparently random string of 40 characters called the <strong>sha1 hash</strong>, which looks a like this: <code>a90973cbe16d5a0cf4fcd5cca659f4a4587d7cb5</code>.</p>
+  
+<p>Whilst it does not look very user friendly every commit across the world has a unique sha1 hash and when you come to share your history with other Git users (for instance other members of the web team) it is a unique way to refer to your work and it's history. If two users have the same sha1 in their repo then they are referring to the same piece of work. In practice humans can usually just refer to the last few unique digits in the sha1 to uniquely identify a commit.</p>
+
+<p>As a user you will generally only see a sha1 hash used to represent a commit, however 'under the covers' the hash is used to identify files and directories (trees in Git terminology), and other objects. This has an interesting, and highly desirable, effect. When you rename a file (or move it in the directory tree) its sha1 hash does not change, but the tree that refers to the file and its name does. This means that Git can track changes and moves far more easily than tools such as Subversion.</p>
+
+<p>Now, lets make another change. Pretend you've done some work and make a change to one of the files. Git GUI will show you the changes:</p>
+
 <img style="width: 451px; height: 436px;"
  alt="Show edit diffefrences in Git-Gui" src="images/SecondChange.png">
-&nbsp;<br>
-Then we can continue to add and commit changes as before<br>
-<br>
-As well as using 'git log' to see the history of changes Git has a
-second GUI application called gitk to that displays the history of
-commits in a graphical format<br>
-<br>
+
+<p>You can also run the command <code>git diff</code> to show the changes in your terminal window. We can continue to add and commit changes as before.
+  
+<p>To view the history of commits to a project you can use the command <code>git log</code>. Git also has a second GUI application called gitk to that displays the history of commits in a graphical format. In Git GUI select <strong>Repository > Visualize All Branch History</strong>.</p>
+
 <img style="width: 441px; height: 489px;" alt="gitk display the history"
  src="images/Screenshot-gitk:%20demo1.png"><br>
+
 <h2>Branches and merges</h2>
-One of Git's most powerful features is support for easy branching and
-merging of files. If you look back over the previous examples you will
-see references to 'master'. This is the name of default branch
-and&nbsp; every time we had changes they will be added to the
-history
-of the master branch.&nbsp; However often life does not proceed in
-a
-long straight line -- we have to jump around&nbsp; and work on
-different sets&nbsp; of changes and Git makes this a lot easier
-than
-you would think. Let's make this a little more concrete.<br>
-<br>
-Suppose we have a web site which is currently in production. That work
-will be maintained on master as the current production release. We now
-have to a) Prepare new changes for the next release of the web site and
-b) Fix issues that comes up in production (and probably a million other
-things as well...)<br>
-<br>
-We can do represent this in Git by having three branches<br>
-<br>
+<p>One of Git's most powerful features is support for easy branching and merging of files. If you look back over the previous examples you will see references to <code>master</code>. This is the name of default branch and every time we had changes they will be added to the history of the master branch. However often life does not proceed in a straight line -- we have to jump around and work on different versions of our project. Git makes this a lot easier than you would think.</p>
+
+<p>Suppose we have a web site which is currently in production. That work will be maintained on the master branch as the current production release; the working web site. We now have to prepare new changes for the next release of the web site and also fix issues that came up in that last production release. (and probably a million other things as well!)</p>
+
+<p>We can do represent this in Git by having three branches:</p>
 <ul>
-  <li>master: What is in production (or about to the released to
-production)</li>
-  <li>development: Our new set of features for the next release (called
-rel_2 below).</li>
-  <li>maintenance: A copy of master that was previously released to
-production that we use to make and test
-immediate fixes to the live site</li>
+  <li><code>master</code>: what is in production or about to the released to production</li>
+  <li><code>development</code>: our new set of features for the next release; we'll call this one rel_2</li>
+  <li><code>maintenance</code>: a copy of master that was previously released to production that we use to make and test immediate fixes to the live site</li>
 </ul>
+
 Let's set up the example and see how we do this (for simplicity we will
 use the command line to set up our demo, it's similar to our example
 above)<br>
