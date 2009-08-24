@@ -8,110 +8,35 @@
 <h1 style="width: 763px;">Version Control and Git for
 Non-Programmers</h1>
 <h2>Introduction</h2>
-<p>This article introduces <a
- href="http://en.wikipedia.org/wiki/Version_Control">version
-control</a> and <a href="http://git-scm.com/">Git</a>
-without assuming any
-prior knowledge or programming experience. Because of it's introductory
-nature certain details are simplified or omitted and the use of the
-Git Graphical User Interface (<a
- href="http://www.kernel.org/pub/software/scm/git/docs/git-gui.html">git-gui</a>)
-is emphasised. Afterwards reader should be able to use Git for basic
-version control and know where to locate further information.</p>
-<p><i>Version Control</i> is the process of recording
-the history of changes to files as they are modified.
-Users can go back in time and get old versions and identify where
-changes were introduced
-(people sometimes refer to version control tools as time machines).
-This mean that it is easier to:
-</p>
+
+<p>This article introduces <a href="http://en.wikipedia.org/wiki/Version_Control">version control</a> and <a href="http://git-scm.com/">Git</a> without assuming any prior knowledge or programming experience. Because of its introductory nature, certain details are simplified or omitted and the use of the Git Graphical User Interface (<a  href="http://www.kernel.org/pub/software/scm/git/docs/git-gui.html">git-gui</a>) is emphasised. Afterwards the reader should be able to use Git for basic version control and know where to locate further information.</p>
+
+<p><i>Version control</i> is the process of recording the history of changes to files as they are modified. Users can go back in time and get old versions and identify where changes were introduced (people sometimes refer to version control tools as time machines). This means that it's easier to:</p>
 <ul>
-  <li>Protect against 'accidental' changes and get a known good
-version of a file back</li>
-  <li>Track down problems and make fixes to previous versions of
-files</li>
-  <li>Have more than one person working on changes at once
-(programmers refer to this as parallel development)</li>
-  <li>Get an older set of files that may be requested by a
-customer or manager</li>
+  <li>protect against changes, accidental or otherwise, and be able to access a known good version of a file</li>
+  <li>track down problems and make fixes to previous versions of files</li>
+  <li>allow more than one person to modify project files simultaneously (programmers refer to this as parallel development)</li>
+  <li>retrieve an older set of files (for example if requested by a customer or manager)</li>
 </ul>
-<p>The first version control (VC) tool, <a
- href="http://en.wikipedia.org/wiki/Source_Code_Control_System">SCCS</a>,
-was written in 1972 and since that time there has a some major advances
-in the way VC tools are used. Git represents the current 'state of the
-art' in that it is distributed <a
- href="http://en.wikipedia.org/wiki/Mercurial_%28software%29">(Mercurial</a>
-and <a href="http://en.wikipedia.org/wiki/Bazaar_software">Bazaar</a>
-are examples of other
-<a href="http://en.wikipedia.org/wiki/Open_source_software">open source</a>
-distributed VC tools).
-A distributed VC tool gives each user a complete history of all changes
-to the files
-which they work on and make further changes, so for instance it's
-possible to look at previous versions of files while flying across the
-Pacific (assuming your laptop battery lasts). Later all changes can be
-merged together over the computer network into a common thread for
-release or further work. Whilst this sounds complicated the tool makes
-it relatively easy and error free.</p>
-<p>Other well know VC tools, for example <a
- href="http://svnbook.red-bean.com/nightly/en/index.html">Subversion</a>,
-are classed as centralised and provide only a single place, the
-repository,
-into which all users put the changes on a regular basis. In this model
-users do not have a personal copy of the change history, they only have
-the set of the files they currently working with. Git also has a some
-plug-ins to allow it it be a local client to a remote repository
-maintained by other tools such as <a
- href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">Subversion</a>
-so you can be a Git user and still work on projects that use those
-tools (see git-svn).
+<p>The first version control (VC) tool, <a href="http://en.wikipedia.org/wiki/Source_Code_Control_System">SCCS</a>, was written in 1972 and since that time there have been major advances in the way VC tools are used. Git represents the current <em>state of the art</em> in that it is distributed. A distributed VC tool gives each user a complete history of all changes to the files on which they work. So, for instance, it's possible to look at previous versions of files while flying across the Pacific (assuming your laptop battery lasts). Later, when you touch down, all changes can be merged together over the computer network for release or further work. This may sound complicated, but the tool makes it relatively easy and error free.</p>  
+
+<p>Other well know VC tools, for example <a href="http://svnbook.red-bean.com/nightly/en/index.html">Subversion</a>, are classed as centralised and provide only a single place, the repository, into which users store their changes on a regular basis. In this model users do not have a personal copy of the change history, they only have the set of the files they currently working with.
 </p>
-Git runs on Windows, OS/X, Linux and UNIX. It was developed by Linus
-Torvalds, the lead developer of Linux, in 2005 to answer the needs of
-the his development community. As well as a powerful tool for the
-individual developer, it provides a powerful model for cooperation.
-Services such as GitHub and Gitorious exploit&nbsp; <br>
+
+Git runs on Windows, Mac OS X, Linux and UNIX. It was developed by Linus Torvalds, the lead developer of Linux, in 2005 to answer the needs of the his development community. As well as a powerful tool for the individual developer, it provides a powerful model for cooperation. Community source code sharing sites like <a href="https://github.com/">GitHub</a> and <a href="http://gitorious.org/">Gitorious</a> make full use of its capabilities.</p>
+
+
 <h2>Concepts</h2>
-<p>
-Git maintains a database of all previous file versions in a repository
-(repo) and it is usually located in a directory called .git. In
-UNIX
-style systems names that begin with a . are not displayed by default so
-the repo is not usually visible during normal work (except on MS
-Windows).
-As well the contents of the files and directory versions the repo
-contains additional
-housekeeping information about current work, other remote repositories
-we are sharing with, current settings and so on. In Git we have a
-separate repo for each of our projects (websites for instance).</p>
-<p>As well as the repo there is the current set of working files
-that are
-we are working on and editing. As we complete changes to our working
-files we add the changes to the repo -- this is called commiting
-changes. In actual fact we are not fully committed as we can always
-get old versions back and make changes to the changes. We can also get
-a summary of our work against previous versions to see what
-we have done so far. The set of files we are currently working is
-called the working copy. We can easily change the working copy to a
-different version whenever we want.</p>
-<img style="width: 555px; height: 374px;"
- alt="The working copy and repo" src="images/Diagram1.png"><br>
-<br>
-Before progressing any further let's install Git and set up a small
-test repo to work with.<br>
+<p>Git maintains a database of all previous file versions in a repository (<em>repo</em> in geek speak) and it is usually located in a directory called <code>.git</code>. In UNIX-style systems (like Mac OS X and Linux) names that begin with a <code>.</code> are hidden by default so the repo is not usually visible during normal work (except on Windows). As well as the contents of the files and directory versions the repo contains additional housekeeping information about current work, other remote repositories we are sharing with, current settings and so on. In Git we have a separate repo for each of our projects.</p>
+
+<p>In addition to the repo each project will have a set of files that are we are working on and editing. As we complete changes to our working files we add the changes to the repo; this is called <em>commiting</em> changes. In actual fact we are not fully committed to our changes as we can always retrieve old versions and make changes to the changes. We can also get a summary of our work against previous versions to see what we have done so far. The set of files we are currently working is called the <em>working copy</em>. We can easily change the working copy to a different version whenever we want.</p>
+
 <h2>Installing Git</h2>
-If you use Linux then installing should be a simple matter of using
-your package manager to install git (and possibly git-gui if it
-is a separate package). For Apple OS/X either use the <a
- href="http://code.google.com/p/git-osx-installer/">installer</a>
-or
-you can use <a href="http://github.com/guides/get-git-on-mac">Mac
-Ports</a>.
-Windows users who use Cygwin can use the Git from Cygwin, use the
-Cygwin set-up.exe package manger to install the appropriate packages.
-Other Windows users should use the the native Windows Git package
-msysgit
-<blockquote>
+<p>Before progressing any further let's install Git and set up a small test repo to work with.</p> 
+
+<p>If you use Linux then installing should be a simple matter of using your package manager to install git (and possibly git-gui if it is a separate package). For Mac OS X either use the <a href="http://code.google.com/p/git-osx-installer/">Git OSX Installer</a> or you can use <a href="http://github.com/guides/get-git-on-mac">Mac Ports</a>. Windows users who use <a href="http://www.cygwin.com/">Cygwin</a> can use the Git from Cygwin; just use the Cygwin package manger to install the appropriate packages. Otherwise Windows users should use the the <a href="http://code.google.com/p/msysgit/downloads/list">native Windows Git package: msysgit</a> (you'll want to download the Git.1.6.nnnnnn.exe NOT the msysGit file). </p>
+
+<blockquote>NEEDS WORK!
   <h3>Special Notes for Windows Users using msysgit</h3>
 If you do not use Cygwin or <a
  href="http://en.wikipedia.org/wiki/PuTTY">Putty</a>,
@@ -142,86 +67,51 @@ the calling program (i.e. Git) without waiting for the user to complete
 the edit. In such cases you need to add an editor command option or
 make an editor configuration change (for instance on my laptop
 <code>GIT_EDITOR</code> has the
-value "<code>/usr/bin/gvim --nofork</code>")<br>
+value "<code>/usr/bin/gvim --nofork</code>")<br>TO HERE
+
 <h2>Starting to use Git</h2>
-Locate the git-gui command, either from a menu or by running git-gui
-from the command line.You see a
-screen similar to this<br>
-<img style="width: 499px; height: 378px;" alt="Git Gui startup screen"
- src="images/Screenshot-Git%20Gui_startup.png">.
-<br>
-Select 'Create New Repository'<br>
-<br>
-<br>
-Enter a the name of a new directory. Git will create the directory and
-initialise an empty repo <br>
-<br>
-Alternatively you do this from the command prompt<br>
-<pre style="margin-left: 40px;">&gt; mkdir demo1<br>&gt; cd demo1<br>&gt; git init<br>Initialised empty Git repository in /home/alec/miniProjects/sitepoint_git_intro/demo1/.git/<br>&gt;<br></pre>
-If you look in the directory you should see a directory names .git (On
-OS/X or Linux you will need to use the command ls -A to show the hidden
-.git directory) In your newly created directory edit some new files.
-You can either use your favourite editor or again use the command line<br>
-<div style="margin-left: 40px;">
-<pre>&gt; echo text1 &gt; file1<br>&gt; echo text2 &gt; file2<br></pre>
-</div>
-You will then have some changes that are not under version control, in
-Git these are called unstaged.<br>
-<br>
-<img style="width: 485px; height: 525px;" alt="Unstaged Changes"
- src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-1.png"><br>
-<br>
-<br>
-You can get the same information from the command line with git status<br>
-<div style="margin-left: 40px;">
-<pre>&gt; git status<br># On branch master<br>#<br># Initial commit<br>#<br># Untracked files:<br># (use "git add &lt;file&gt;..." to include in what will be committed)<br>#<br># file1<br># file2<br>nothing added to commit but untracked files present (use "git add" to track)<br></pre>
-</div>
-Now for a little diversion before we add our files to the repository<br>
+<p>The quickest way to get started is to use the git-gui client. If you use Windows you'll find <strong>Git GUI</strong> on your Start menu, otherwise you can type the command <code>git gui</code> at a the command prompt. You'll see a screen similar to this:</p>
+
+<img alt="Git Gui startup screen" src="images/git-gui-startup.png">.
+
+<p>Select <strong>Create New Repository</strong> and enter a the name of a new directory. Git will create the directory and initialize an empty repo. Alternatively, create a project directory, and then from within the new directory enter the following from the command prompt:</p>
+  
+<pre><code>$ git init</code></pre>
+
+<p>If you're on Mac OS X or Linux you can just use the standard terminal. If you're on Windows and you've installed the msysGit package, then you will find the <strong>Git Bash</strong> item on your start menu. This will launch a special command prompt for using git. You don't actually enter the <code>$</code>, that represents the command prompt, enter in everything after it.</p>
+
+<p>You should then see a message like the following:</p>
+
+<pre><code>Initialized empty Git repository in /path/to/your/directory/.git/</code></pre>
+
+<p>If you look in the project directory you should see a directory named <code>.git</code> (On Mac OS X or Linux you will need to use the command <code>ls -A</code> to show the hidden <code>.git</code> directory) In your newly created project directory create some new text files using your favourite editor. You now have some changes that are not under version control, in Git these are called <em>unstaged</em>. In Git GUI they look should like this:</p>
+
+<img alt="Unstaged Changes" src="images/git-gui-unstaged-changes.png">
+
+<p>You can get the same information from the command line with the command <code>git status</code>.</p>
+
+<img alt="git status" src="images/git-bash-status.png">
+
+<p>Now for a little diversion before we add our files to the repository: the <em>Git index</em>.</p>
+
 <h2>The Git Index</h2>
-Git is a little different to most VC tools in that adding changes to a
-repo is a two stage process. All changes, before they arrive at the
-repo, are staged into the index.<br>
-<br>
+<p>Git is a little different to most VC tools in that adding changes to a repo is a two stage process. All changes are <em>staged</em> in the index, before they are committed into the repo.</p>
+
 <img style="width: 420px; height: 361px;" alt="Working vs Index vs Repo"
  src="images/Diagram2.png"><br>
-<br>
-The index allows us to add, remove and modify changes on the way to
-building a commit.
-Whilst the index seems confusing and unnecessary at first it is useful
-for
-a
-variety of reasons:<br>
+
+<p>The index allows us to add, remove and modify changes on the way to building a commit. Whilst the index seems confusing and unnecessary at first it is useful for a variety of reasons:</p>
+
 <ol>
-  <li>Our working copy may contain more that one set of changes
-and the
-index allows us to cherry pick which ones will be part of the next
-commit.</li>
-  <li>You can incrementally make changes (using your own
-work-flow)
-before making a commit.</li>
-  <li>You can stage and unstage changes in more complex work
-flows (see
-'<a
- href="http://www.kernel.org/pub/software/scm/git/docs/git-stash.html">git
-stash</a>')<br>
-  </li>
+  <li>Our working copy may contain more that one set of changes and the index allows us to cherry pick which ones will be part of the next commit.</li>
+  <li>You can incrementally make changes (using your own workflow) before making a commit.</li>
+  <li>You can stage and unstage changes in more complex work flows (this is a little advanced for this intro but if you're curious see '<a  href="http://www.kernel.org/pub/software/scm/git/docs/git-stash.html">git stash</a>')</li>
 </ol>
-To control the index use the '<a
- href="http://www.kernel.org/pub/software/scm/git/docs/git-add.html">git
-add</a>' command. Whenever we have a new files or we update a
-file the
-'<code>git add</code>' command is used to add the content
-to the index. As well as
-add there is a '<a
- href="http://www.kernel.org/pub/software/scm/git/docs/git-rm.html">git
-rm</a>' (remove file) and a '<a
- href="http://www.kernel.org/pub/software/scm/git/docs/git-mv.html">git
-mv</a>' (move or rename file) command. Once we have created the
-appropriate changes to the index we can commit changes to the repo.<br>
-<br>
-However won't be talking about the index any more here, we will just
-use it.<br>
-<br>
+
+<p>Whenever we have file changes the <code>git add</code> command is used to add the content to the index. As well as
+<code>add</code> there is also the <a  href="http://www.kernel.org/pub/software/scm/git/docs/git-rm.html">git rm</a> command to remove files and the <a  href="http://www.kernel.org/pub/software/scm/git/docs/git-mv.html">git mv</a> file to move or rename files. Once we have added the appropriate changes to the index we can commit changes to the repo.</p>
+
+That's all I'll mention about the index here, we'll just go ahead and use it. However before we can do that we have to sort out a configuration issue.
 Before using Git for the first time we need to tell Git who we are
 (name and email
 address). From the Git GUI interface select Edit-&gt;Options and
