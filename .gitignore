@@ -3,3 +3,4 @@
 *.old
 *.save
 demo*/
+.DS_Store
