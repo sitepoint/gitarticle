@@ -363,7 +363,8 @@ We can do represent this in Git by having three branches<br>
 <ul>
   <li>master: What is in production (or about to the released to
 production)</li>
-  <li>development: Our new set of features for the next release.</li>
+  <li>development: Our new set of features for the next release (called
+rel_2 below).</li>
   <li>maintenance: A copy of master that was previously released to
 production that we use to make and test
 immediate fixes to the live site</li>
@@ -374,7 +375,7 @@ above)<br>
 <br>
 <div style="margin-left: 40px;">
 <pre>&gt; mkdir demo2<br>&gt; cd demo2<br>&gt; git init</pre>
-... edit index.html...<br>
+... edit index.html... test.... test...<br>
 <pre>&gt; git add .<br>&gt; git commit -m "Initial Production version"<br>&gt; git status<br># On branch master<br>nothing to commit (working directory clean)</pre>
 </div>
 <br>
@@ -385,7 +386,7 @@ archive</a> to perform a release). All is
 right with the world and we come in the next day and start working on
 new features<br>
 <pre style="margin-left: 40px;">&gt; cd demo2<br>&gt; git branch "rel_2"<br></pre>
-There are now two branches -- any changes on once branch are
+There are now two branches -- any changes on one branch are
 independent of the history recorded on the branch. We can list the
 branches like this<br>
 <br>
@@ -439,6 +440,11 @@ Running the git log command summarises the previous two commits<br>
 <div style="margin-left: 40px;">
 <pre>$git log<br>commit 0015d91c6d24f6d43627bf45af82ee2085fbfc5d<br>Author: Alec Clews &lt;alec.clews@voga.com.au&gt;<br>Date: Wed Jul 29 09:38:51 2009 +1000<br><br> say goodbye<br><br>commit e74e1271907baf14a4cd5c2d7724373face011d6<br>Author: Alec Clews &lt;alec.clews@voga.com.au&gt;<br>Date: Mon Jul 27 22:05:06 2009 +1000<br><br> Initial Production version<br><br></pre>
 </div>
+We can aslo see the history wuth gitk<br>
+<br>
+<img style="width: 598px; height: 587px;" alt="first commit for rel 2"
+ src="images/Screenshot-gitk:%20b1.png"><br>
+<br>
 Now lets do a production fix without affecting our work in progress.
 Remember that the master branch is the current copy of&nbsp;
 production, so let's move our working copy back to production (because
@@ -462,15 +468,22 @@ branch (because that is the last branch we checked out)<br>
 <br>
 <br>
 </code></div>
-<img style="width: 441px; height: 489px;"
+<img style="width: 598px; height: 587px;"
  alt="gitk displays multiple branches"
- src="images/Screenshot-gitk:%20demo2-2.png"><br>
+ src="images/Screenshot-gitk:%20b3.png"><br>
 <br>
 We can now test our changes in isolation before merging them onto the
 master production branch. As this is a very simple merge some of these
 options are for show.<br>
 <br>
-<pre style="margin-left: 40px;">&gt;git checkout master<br>&gt;git merge prod_support&nbsp; -m "Update prod with fixed from support"<br>&gt;git log</pre>
+<pre style="margin-left: 40px;">&gt;git checkout master<br>&gt;git merge prod_support&nbsp; -m "Update prod with fixed from support"</pre>
+<img style="width: 598px; height: 587px;"
+ alt="After a fast forward merge" src="images/Screenshot-gitk:%20b4.png"><br>
+<br>
+Release fronm Master and we can got back to working in release 2 with a
+simple<br>
+<br>
+<pre style="margin-left: 40px;">&gt;git checkout rel_2<br></pre>
 <br>
 <span style="font-weight: bold;"></span>
 <h2>Wrap Up</h2>
