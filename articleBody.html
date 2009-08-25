@@ -34,40 +34,7 @@ Git runs on Windows, Mac OS X, Linux and UNIX. It was developed by Linus Torvald
 <h2>Installing Git</h2>
 <p>Before progressing any further let's install Git and set up a small test repo to work with.</p> 
 
-<p>If you use Linux then installing should be a simple matter of using your package manager to install git (and possibly git-gui if it is a separate package). For Mac OS X either use the <a href="http://code.google.com/p/git-osx-installer/">Git OSX Installer</a> or you can use <a href="http://github.com/guides/get-git-on-mac">Mac Ports</a>. Windows users who use <a href="http://www.cygwin.com/">Cygwin</a> can use the Git from Cygwin; just use the Cygwin package manger to install the appropriate packages. Otherwise Windows users should use the the <a href="http://code.google.com/p/msysgit/downloads/list">native Windows Git package: msysgit</a> (you'll want to download the Git.1.6.nnnnnn.exe NOT the msysGit file). </p>
-
-<blockquote>NEEDS WORK!
-  <h3>Special Notes for Windows Users using msysgit</h3>
-If you do not use Cygwin or <a
- href="http://en.wikipedia.org/wiki/PuTTY">Putty</a>,
-then accept all
-defaults during the install. You&nbsp; may care to make a single
-change
-to select "Run Git from the Windows Command Prompt"<br>
-If you want to use Git from the command line (which is much easier once
-you are used to it) then set up the GIT_EDITOR environment string to
-point to a text editor that can handle UNIX format text files. For
-instance
-for Notepad++ type the following "<code>set
-GIT_EDITOR=c:\Progra~1\Notepad++\notepad++.exe</code>" (note the
-lack of
-spaces in
-the path string) or add it permanently to the environment. This will be
-the editor used to create your commit messages, more on that later.
-Note that Windows Notepad is inadequate to the task.<br>
-  <br>
-There are more notes for Windows users <a
- href="http://nathanj.github.com/gitguide/index.html">here</a>
-and <a
- href="http://www.lostechies.com/blogs/jason_meridth/archive/2009/06/01/git-for-windows-developers-git-series-part-1.aspx">here</a>.<br>
-</blockquote>
-On many platforms graphical editors (for example gvim) will spawn a
-window for editing the commit message and return control immediately to
-the calling program (i.e. Git) without waiting for the user to complete
-the edit. In such cases you need to add an editor command option or
-make an editor configuration change (for instance on my laptop
-<code>GIT_EDITOR</code> has the
-value "<code>/usr/bin/gvim --nofork</code>")<br>TO HERE
+<p>If you use Linux then installing should be a simple matter of using your package manager to install git (and possibly git-gui if it is a separate package). For Mac OS X either use the <a href="http://code.google.com/p/git-osx-installer/">Git OSX Installer</a> or you can use <a href="http://github.com/guides/get-git-on-mac">Mac Ports</a>. Windows users who use <a href="http://www.cygwin.com/">Cygwin</a> can use the Git from Cygwin; just use the Cygwin package manger to install the appropriate packages. Otherwise Windows users should use the the <a href="http://code.google.com/p/msysgit/downloads/list">native Windows Git package: msysgit</a> (you'll want to download the file labelled "  	 <em>Full installer if you want to use official Git..</em>" and avoid the file labelled "<em>Full installer (self-contained) if you want to hack on Git</em>" and accept all the installation defaults). </p>
 
 <h2>Starting to use Git</h2>
 <p>The quickest way to get started is to use the git-gui client. If you use Windows you'll find <strong>Git GUI</strong> on your Start menu, otherwise you can type the command <code>git gui</code> at a the command prompt. You'll see a screen similar to this:</p>
@@ -115,8 +82,7 @@ That's all I'll mention about the index here, we'll just go ahead and use it. Ho
 <h2>Configuration</h2>
 <p>Before using Git we need to tell Git who we are; our name and email address. From the Git GUI interface select <strong>Edit &gt; Options</strong> and fill in the top two fields under Global. leave all the other values as they are</p>
 
-<img src="images/Screenshot-Git%20Gui%20%28demo1%29:%20Options.png"
- alt="Set Global details" style="width: 870px; height: 552px;"><br>
+<img src="images/git-gui-config.png" alt="Set Global details"><br>
 
 You can alternately run the commands
 <pre><code>$ git config --global user.name "Alec Clews"
@@ -126,14 +92,12 @@ $ git config --global user.email "alec.clews@voga.com.au"</code></pre>
 
 <p><em>Now</em> we can add our changes to the index and commit them to the repository. First select both files on the "Unstaged Changes" pane.</p>
 
-<img style="width: 537px; height: 552px;" alt="Select Files for staging"
- src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-2.png"><br>
+<img alt="Select Files for staging" src="images/git-gui-unstaged-changes-panel.png">
 
 <p>Then select <strong>Commit > Stage To Commit</strong> (ctrl+t). The display then changes to show that we have no changes waiting to be
 staged, but we do have changes to be committed.</p>
 
-<img style="width: 537px; height: 552px;" alt="Files to be committed"
- src="images/Screenshot-Git%20Gui%20%28demo1%29%20-home-alec-miniProjects-sitepoint_git_intro-demo1-3.png">
+<img alt="Files to be committed" src="images/git-gui-staged.png">
  
 Alternatively you can run the following command
 
@@ -145,15 +109,11 @@ You can also use the following if you don't need to specify which files to add:
 
 <p>Now that our files are staged, we can commit our first changes to the repo. Each time we make a commit, Git expects an informational message that gets added as part of the commit -- if you don't provide message no commit will be made. Generally we add a single line description and then a more detailed message. Click the <strong>Commit</strong> button and the changes are committed to the repo.</p>
 
-<img style="width: 700px; height: 570px;" alt="Git-Gui commit example"
- src="images/Win1.png"><br>
+<img alt="Git GUI commit example" src="images/git-gui-staged-commit.png"><br>
 
 Alternatively from the command line you can enter the following:
 
-<pre><code>$ git commit -m "A message about your changes"</code></pre>
-
-<p>If you don't use the -m switch to add a message, Git will launch the text editor ViM for you. ViM can be a little bit confusing, but here's a quick cheat sheet. Hit i to enter insert mode, type in your message, hit esc to leave insert mode and then shift+ZZ to save and close. CHECK THIS</p>
-  
+<pre><code>$ git commit -m "A message about your changes"</code></pre>  
   
 <p>Now that we have made a commit, the latest version in the repo -- called <code>HEAD</code> -- is the same as the contents of the working files. Running the command <code>git status</code> should show the message:</p>
 
@@ -169,15 +129,13 @@ nothing to commit (working directory clean)</code></pre>
 
 <p>Now, lets make another change. Pretend you've done some work and make a change to one of the files. Git GUI will show you the changes:</p>
 
-<img style="width: 451px; height: 436px;"
- alt="Show edit diffefrences in Git-Gui" src="images/SecondChange.png">
+<img alt="Showing diffefrences in Git GUI" src="images/git-gui-unstaged-changes-2.png">
 
 <p>You can also run the command <code>git diff</code> to show the changes in your terminal window. We can continue to add and commit changes as before.
   
 <p>To view the history of commits to a project you can use the command <code>git log</code>. Git also has a second GUI application called gitk to that displays the history of commits in a graphical format. In Git GUI select <strong>Repository > Visualize All Branch History</strong>.</p>
 
-<img style="width: 441px; height: 489px;" alt="gitk display the history"
- src="images/Screenshot-gitk:%20demo1.png"><br>
+<img alt="Visualize the history" src="images/git-gui-history-viz.png">
 
 <h2>Branches and merges</h2>
 <p>One of Git's most powerful features is support for easy branching and merging of files. If you look back over the previous examples you will see references to <code>master</code>. This is the name of default branch and every time we had changes they will be added to the history of the master branch. However often life does not proceed in a straight line -- we have to jump around and work on different versions of our project. Git makes this a lot easier than you would think.</p>
@@ -232,15 +190,13 @@ nothing to commit (working directory clean)</code></pre>
 Now let's make some changes for the next web site release. Edit <code>index.html</code> and add the following:
 
 <pre><code>...
-  &lt;h1&gt;Hello World&lt;/h1&gt;
+  &lt;h1&gt;hello World&lt;/h1&gt;
   &lt;h2&gt;Goodbye World&lt;/h2&gt;
 ...</code></pre>
 
 <p>We can see summary of the changes in Git GUI or by using <code>git diff</code> on the command line:</p>
 
-<img style="width: 566px; height: 465px;" alt="Diff display"
- src="images/Screenshot-Git%20Gui%20%28demo2%29%20Diff%20.png"><br>
-<br>
+<img alt="Diff display" src="images/git-gui-prod-rel2-unstaged.png">
 
 <pre><code>$ git diff
 diff --git a/index.html b/index.html
@@ -291,8 +247,7 @@ Date: Mon Jul 27 22:05:06 2009 +1000
 
 <p>We can aslo see the history with the Git GUI visualization tool</p>
 
-<img style="width: 598px; height: 587px;" alt="first commit for rel 2"
- src="images/Screenshot-gitk:%20b1.png"><br>
+<img alt="first commit for rel 2" src="images/git-gui-prod-rel2-history.png"><br>
 
 <p>Now lets simulate a fix to the production release code without affecting our work in progress on the rel_2 branch. Remember that the master branch is the current copy of our production code, so let's move our working copy back to production (our recent changes are safe on the rel_2 branch).</p>
 
@@ -311,11 +266,9 @@ $ git branch
   rel_2
 </code></pre>
 
-<p>So now we have three branches and we are working on the prod_support branch (because that is the last branch we checked out). Edit <code>index.html</code> and then commit the changes. Using the visualization tool from Git GUI we can see all the branches.</p>
+<p>So now we have three branches and we are working on the prod_support branch (because that is the last branch we checked out). Edit <code>index.html</code> (capitalize the <em>H</em> in <em>hello</em>) and then commit the changes. Using the visualization tool from Git GUI we can see all the branches.</p>
 
-<img style="width: 598px; height: 587px;"
- alt="gitk displays multiple branches"
- src="images/Screenshot-gitk:%20b3.png">
+<img alt="gitk displays multiple branches" src="images/git-gui-prod-support-history.png">
  
  
 Because we're working on the prod_support branch we can now test our changes in isolation. If all is well we'll want to apply those changes to the master branch so we can release them to production. This operation is called <em>merging</em>. First we need to checkout the master branch and then we can merge in the changes from the prod_support branch. Use <strong>Branch &gt; Checkout...</strong> in Git GUI, or the following command:
@@ -326,18 +279,17 @@ To merge the changes in Git GUI use <strong>Merge &gt; Local Merge...</strong>, 
 
 <pre><code>$ git merge prod_support  -m "Update production with fix from support"</code></pre>
 
-If we look at our history visualization again we can see the effect of the merge.
+<p>If we look at our history visualization again we can see the effect of the merge.</p>
 
-<img style="width: 598px; height: 587px;"
- alt="After a fast forward merge" src="images/Screenshot-gitk:%20b4.png">
+<img alt="After a merge" src="images/git-gui-prod-support-history-merged.png">
  
-Now that the fix has been released into production, we can get back to working on the rel_2 branch:
+<p>Now that the fix has been released into production, we can get back to working on the rel_2 branch:</p>
 
 <pre><code>$ git checkout rel_2</code></pre>
 
 
 <h2>Wrap Up</h2>
-This has only been a very brief tour to introduce the power of Git. There are lots of really great resources to help get you started (some are listed below). So why would you want to take it to the next level?<br>
+<p>This has only been a very brief tour to introduce the power of Git. There are lots of really great resources to help get you started (some are listed below). So why would you want to take it to the next level?</p>
 <ol>
   <li>Git can run without a network or a central server</li>
   <li>it's very fast</li>
