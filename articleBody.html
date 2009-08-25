@@ -191,176 +191,174 @@ nothing to commit (working directory clean)</code></pre>
   <li><code>maintenance</code>: a copy of master that was previously released to production that we use to make and test immediate fixes to the live site</li>
 </ul>
 
-Let's set up the example and see how we do this (for simplicity we will
-use the command line to set up our demo, it's similar to our example
-above)<br>
-<br>
-<div style="margin-left: 40px;">
-<pre>&gt; mkdir demo2<br>&gt; cd demo2<br>&gt; git init</pre>
-... edit index.html... test.... test...<br>
-<pre>&gt; git add .<br>&gt; git commit -m "Initial Production version"<br>&gt; git status<br># On branch master<br>nothing to commit (working directory clean)</pre>
-</div>
-<br>
-Now we release the latest contents of the git repo to the web site
-(refer to commands such as <a
- href="http://www.kernel.org/pub/software/scm/git/docs/git-archive.html">git
-archive</a> to perform a release). All is
-right with the world and we come in the next day and start working on
-new features<br>
-<pre style="margin-left: 40px;">&gt; cd demo2<br>&gt; git branch "rel_2"<br></pre>
-There are now two branches -- any changes on one branch are
-independent of the history recorded on the branch. We can list the
-branches like this<br>
-<br>
-<div style="margin-left: 40px;">
-<pre>&gt; git branch<br>* master<br>&nbsp; rel_2</pre>
-</div>
-<br>
-The currently active branch is marked with an asterisk. We can now work
-on rel 2 with a simple checkout<br>
-<br>
-<div style="margin-left: 40px;">
-<pre>&gt; git checkout rel_2<br>Switched to branch 'rel_2'</pre>
-</div>
-<br>
-and so<br>
-<br>
-<div style="margin-left: 40px;">
-<pre>&gt; git branch<br>&nbsp; master<br>* rel_2</pre>
-</div>
-<br>
-Now we make some changes for the next release, in this case editing
-index.html. We can see summary of changes by looking in the GUI or
-using git diff on the command line<br>
-<br>
+<p>Let's set up another example and see it in action. Create a new repository as we did previously, and add a file called <code>index.html</code> with the source as follows:</p>
+
+<pre><code>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+&lt;html&gt;
+  &lt;head&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;hello world&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<p>Now add and commit the file with the message "<em>Initial Production version</em>". This is our release version of the web site. If you're curious as to how to make a release, see <a  href="http://www.kernel.org/pub/software/scm/git/docs/git-archive.html"><code>git archive</code></a>. All is right with the world and we come in the next day and start working on new features. So that we don't disturb the production code we create a new branch. You can do this in Git GUI by selecting <strong>Branch &gt; Create...</strong> and giving it a name. Doing it from the command line is just as easy:</p>
+
+<pre><code>$ git branch rel_2</code></pre>
+
+<p>There are now two branches in our project -- changes on one branch are independent of the history recorded on the other branch. We can list the branches like this:</p>
+
+<pre><code>$ git branch
+  * master
+    rel_2
+</code></pre>
+
+<p>The branch you are working on is called the <em>active</em> branch, and is marked with an asterisk. The <code>git checkout</code> command is used to switch between branches in order to work on them. Enter the following command:</p>
+
+<pre><code>$ git checkout rel_2</code></pre>
+
+<p>You can also use Git GUI; select <strong>Branch &gt; Checkout</strong> and you'll be given a list of branches to select from. For your information both the <code>git status</code> and <code>git branch</code> commands will indicate the currently active branch, as will the Git GUI window.</p>
+
+<pre><code>$ git branch
+    master
+  * rel_2
+</code></pre>
+
+<pre><code>$ git status
+# On branch rel_2
+# ...
+</code></pre>
+
+Now let's make some changes for the next web site release. Edit <code>index.html</code> and add the following:
+
+<pre><code>...
+  &lt;h1&gt;Hello World&lt;/h1&gt;
+  &lt;h2&gt;Goodbye World&lt;/h2&gt;
+...</code></pre>
+
+<p>We can see summary of the changes in Git GUI or by using <code>git diff</code> on the command line:</p>
+
 <img style="width: 566px; height: 465px;" alt="Diff display"
  src="images/Screenshot-Git%20Gui%20%28demo2%29%20Diff%20.png"><br>
 <br>
-<pre style="margin-left: 40px;">&gt; git diff<br>diff --git a/index.html b/index.html<br>index 800b514..dd9ef86 100644<br>--- a/index.html<br>+++ b/index.html<br>@@ -4,5 +4,7 @@<br> &lt;/head&gt;<br> &lt;body&gt;<br> hello world&lt;br&gt;<br>+&lt;br&gt;<br>+and goodbye as well&lt;br&gt;<br> &lt;/body&gt;<br> &lt;/html&gt;<br><br></pre>
-<br>
-The lines beginning with '+' shows the change I have not staged. git
-diff has a variety of option that allow you display changes between the
-working copy, index and various revisions. Type git diff --help at the
-command prompt, all Git commands support the --help option.<br>
-<br>
-I'll now stage and commit the change using a single git command (for
-illustrative purposes).<br>
-<br>
-<div style="margin-left: 40px;">
-<pre>&gt; git commit -a -m "say goodbye"<br>[rel_2 0015d91] say goodbye<br> 1 files changed, 2 insertions(+), 0 deletions(-)<br><br></pre>
-</div>
-Git tells us (reading from the bottom up.<br>
-<br>
+
+<pre><code>$ git diff
+diff --git a/index.html b/index.html
+index 1d02625..e7973bc 100644
+--- a/index.html
++++ b/index.html
+@@ -4,5 +4,6 @@
+   &lt;/head&gt;
+   &lt;body&gt;
+     &lt;h1&gt;hello world&lt;/h1&gt;
++    &lt;h2&gt;Goodbye World&lt;/h2&gt;
+   &lt;/body&gt;
+ &lt;/html&gt;</code></pre>
+
+<p>Lines that begin with the plus symbol (<code>+</code>) indicate the additions that have not been staged. <code>git diff</code> has a variety of options that allow you display changes between the working copy, index and various revisions. Type <code>git diff --help</code> at the command prompt to get more information. Incidentally, all Git commands support the --help option.</p>
+
+<p>Stage and commit the changes and we're done. If you use the command line you may like to know that you can do it all with only one command:</p>
+
+<pre><code>$ git commit -a -m "say goodbye"</code></pre>
+
+<p>If you use the command line you also get feedback about the committed changes:</p>
+
+<pre><code>[rel_2 0015d91] say goodbye
+1 files changed, 1 insertions(+), 0 deletions(-)</code></pre>
+
+<p>Git is telling us that:</p>
+
 <ol>
-  <li>It has tracked a change to 1 file</li>
-  <li>The file change consisted of 2 lines inserted</li>
-  <li>That a new commit with a sha1 starting 0015d91 was created</li>
-  <li>That the HEAD (and branch rel_2) point to that new commit</li>
+  <li>that a new commit on the branch rel_2 with a sha1 hash starting 0015d91 was created with the message "say goodbye"</li>
+  <li>it has tracked a change to 1 file</li>
+  <li>the file change consisted of 1 line inserted</li>
 </ol>
-Running the git log command summarises the previous two commits<br>
-<br>
-<div style="margin-left: 40px;">
-<pre>$git log<br>commit 0015d91c6d24f6d43627bf45af82ee2085fbfc5d<br>Author: Alec Clews &lt;alec.clews@voga.com.au&gt;<br>Date: Wed Jul 29 09:38:51 2009 +1000<br><br> say goodbye<br><br>commit e74e1271907baf14a4cd5c2d7724373face011d6<br>Author: Alec Clews &lt;alec.clews@voga.com.au&gt;<br>Date: Mon Jul 27 22:05:06 2009 +1000<br><br> Initial Production version<br><br></pre>
-</div>
-We can aslo see the history wuth gitk<br>
-<br>
+
+<p>Running the <code>git log</code> command summarizes the previous two commits</p>
+
+<pre><code>$git log
+commit 0015d91c6d24f6d43627bf45af82ee2085fbfc5d
+Author: Alec Clews <alec.clews@voga.com.au>
+Date: Wed Jul 29 09:38:51 2009 +1000
+
+ say goodbye
+
+commit e74e1271907baf14a4cd5c2d7724373face011d6
+Author: Alec Clews <alec.clews@voga.com.au>
+Date: Mon Jul 27 22:05:06 2009 +1000
+
+ Initial Production version</code></pre>
+
+<p>We can aslo see the history with the Git GUI visualization tool</p>
+
 <img style="width: 598px; height: 587px;" alt="first commit for rel 2"
  src="images/Screenshot-gitk:%20b1.png"><br>
-<br>
-Now lets do a production fix without affecting our work in progress.
-Remember that the master branch is the current copy of&nbsp;
-production, so let's move our working copy back to production (because
-our new changes are safe on the rel_2 branch).<br>
-<br>
-<div style="margin-left: 40px;">
-<pre>&gt;git checkout master<br>Switched to branch 'master'<br>&gt; cat index.html <br>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>hello world&lt;br&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br></pre>
-</div>
-So we have gone back to the production environment. Let's create a new
-branch for production support<br>
-<br>
-<div style="margin-left: 40px;">
-<pre>&gt; git branch prod_support<br>&gt; git checkout prod_support<br>Switched to branch 'prod_support'<br>&gt; git branch<br> master<br>* prod_support<br> rel_2<br><br></pre>
-</div>
-So now we have three branches and we are working on the prod_support
-branch (because that is the last branch we checked out)<br>
-<br>
-<div style="margin-left: 40px;">...edit index.html...<br>
-<br>
-<code>&gt;gitk --all<br>
-<br>
-<br>
-</code></div>
+
+<p>Now lets simulate a fix to the production release code without affecting our work in progress on the rel_2 branch. Remember that the master branch is the current copy of our production code, so let's move our working copy back to production (our recent changes are safe on the rel_2 branch).</p>
+
+<pre><code>$ git checkout master
+Switched to branch 'master'</code></pre>
+
+<p>If you're using Git GUI, then select <strong>Branch &gt; Checkout...</strong>. So, we've returned to the master branch, let's create a new
+branch for production support and switch to it:</p>
+
+<pre><code>$ git branch prod_support
+$ git checkout prod_support
+Switched to branch 'prod_support'
+$ git branch
+  master
+* prod_support
+  rel_2
+</code></pre>
+
+<p>So now we have three branches and we are working on the prod_support branch (because that is the last branch we checked out). Edit <code>index.html</code> and then commit the changes. Using the visualization tool from Git GUI we can see all the branches.</p>
+
 <img style="width: 598px; height: 587px;"
  alt="gitk displays multiple branches"
- src="images/Screenshot-gitk:%20b3.png"><br>
-<br>
-We can now test our changes in isolation before merging them onto the
-master production branch. As this is a very simple merge some of these
-options are for show.<br>
-<br>
-<pre style="margin-left: 40px;">&gt;git checkout master<br>&gt;git merge prod_support&nbsp; -m "Update prod with fixed from support"</pre>
+ src="images/Screenshot-gitk:%20b3.png">
+ 
+ 
+Because we're working on the prod_support branch we can now test our changes in isolation. If all is well we'll want to apply those changes to the master branch so we can release them to production. This operation is called <em>merging</em>. First we need to checkout the master branch and then we can merge in the changes from the prod_support branch. Use <strong>Branch &gt; Checkout...</strong> in Git GUI, or the following command:
+
+<pre><code>$ git checkout master</code></pre>
+
+To merge the changes in Git GUI use <strong>Merge &gt; Local Merge...</strong>, select the prod_support branch from the list, and click the <strong>Merge</strong> button.  Or, from the command line, enter the following command:
+
+<pre><code>$ git merge prod_support  -m "Update production with fix from support"</code></pre>
+
+If we look at our history visualization again we can see the effect of the merge.
+
 <img style="width: 598px; height: 587px;"
- alt="After a fast forward merge" src="images/Screenshot-gitk:%20b4.png"><br>
-<br>
-Release fronm Master and we can got back to working in release 2 with a
-simple<br>
-<br>
-<pre style="margin-left: 40px;">&gt;git checkout rel_2<br></pre>
-<br>
-<span style="font-weight: bold;"></span>
+ alt="After a fast forward merge" src="images/Screenshot-gitk:%20b4.png">
+ 
+Now that the fix has been released into production, we can get back to working on the rel_2 branch:
+
+<pre><code>$ git checkout rel_2</code></pre>
+
+
 <h2>Wrap Up</h2>
-This has only been a very brief tour to introduce the power of Git.
-There are lots of really great resources to help get you started (some
-are listed below). So why would you want to take it to the next level?<br>
+This has only been a very brief tour to introduce the power of Git. There are lots of really great resources to help get you started (some are listed below). So why would you want to take it to the next level?<br>
 <ol>
-  <li>Git does not need a network connection to a central server</li>
-  <li>It's very fast</li>
-  <li>Extremely powerful but flexible<br>
-  </li>
-  <li>Has a great model for sharing work with the your colleagues (who
-could be using tools such as Subversion) and the rest of the world
-through services like GitHub and Gitorious</li>
+  <li>Git can run without a network or a central server</li>
+  <li>it's very fast</li>
+  <li>it's extremely powerful and flexible</li>
+  <li>it encourages collaboration with the your colleagues and the rest of the world through services like GitHub and Gitorious</li>
 </ol>
-<h3>Further learning</h3>
-Here are some suggestions on a learning plan to take you forward<br>
+<h3>Further Reading</h3>
 <ul>
-  <li><span style="font-family: Verdana;">View the video and material
-at http://learn.github.com/p/intro.html . Follow through the examples
-and perform them on your environment.</span></li>
-  <li><span style="font-family: Verdana;">Start reading the material at
-http://www.newartisans.com/blog_assets/git.from.bottom.up.pdf This
-should be an ongoing activity and will explain some of the Git
-internals which helps with day to day use<br>
-    </span></li>
-  <li><span style="font-family: Verdana;">Continue with
-http://learn.github.com/p/setup.html,
-http://learn.github.com/p/normal.html,
-http://learn.github.com/p/branching.html,
-http://learn.github.com/p/tagging.html,
-http://learn.github.com/p/log.html, http://learn.github.com/p/diff.html
-and http://learn.github.com/p/undoing.html</span></li>
-</ul>
-<h3>Other resources</h3>
-<ul>
-  <li><span style="font-family: Verdana;">Main Git site
-(http://git-scm.com/)</span></li>
-  <li><span style="font-family: Verdana;">Official Git tutorial
-(http://www.kernel.org/pub/software/scm/git/docs/v1.5.4.5/tutorial.html)</span></li>
-  <li><span style="font-family: Verdana;">Alec's personal Git links
-(http://delicious.com/alecclews/git)</span></li>
+  <li>The <a href="http://learn.github.com/p/intro.html">introductory tutorial video and other material at Github</a> is excellent.</li>
+  <li>The main Git site (http://git-scm.com/) has lots of documentation.</li>
+  <li>The <a href="http://www.kernel.org/pub/software/scm/git/docs/v1.5.4.5/tutorial.html">official Git tutorial can be found at http://www.kernel.org</a>.</li>
+  <li>I maintain <a href="http://delicious.com/alecclews/git">a list of useful Git links on Delicious</a>.</li>
 </ul>
 <br>
 <br>
 <h2>About the author</h2>
-Alec Clews is principal consultant at Voga Consulting Services
-(http://voga.com.au) where he specialises in SCM and Application
-Life-cycle
-Management. You can connect to him at
-http://www.linkedin.com/in/alecclews, have a conversation with him as
-alecthegeek on twitter and identi.ca, or find his code at
-http://github.com/alecthegeek.
-<h2>Copyright</h2>
-This article is copyright © 2009 SitePoint Pty. Ltd. All Rights
+Alec Clews is principal consultant at Voga Consulting Services (http://voga.com.au) where he specialises in SCM and Application Life-cycle
+Management. You can connect to him at http://www.linkedin.com/in/alecclews, have a conversation with him as alecthegeek on twitter and identi.ca, or find his code at http://github.com/alecthegeek.
+
+
+<h2>Copyright</h2> This article is copyright © 2009 SitePoint Pty. Ltd. All Rights
 Reserved. Join the discussion at
 http://sitepoint.com/launch/git-tutorial/
 </body>
